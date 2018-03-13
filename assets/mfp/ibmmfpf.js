@@ -4667,23 +4667,22 @@ WL.AuthorizationManager = (function () {
     //      0  if a = b
     //      1  if a < b
     var __compareVersions = function(a,b){
-            // for (var i=0;i<3;i++){
-                // if (!a[i]){ //add '0' if version part is missing
-                    // a.push("0");
-                // }
-                // if (!b[i]){ //add '0' if version part is missing
-                    // b.push("0");
-                // }
-                // a[i] = addLeadingZeros(a[i]);//add leading zeros to verify string size is equal
-                // b[i] = addLeadingZeros(b[i]);//add leading zeros to verify string size is equal
-            // }
-            // var aStr = a.slice(0,3).join("");//create a string from the first 3 parts of the version
-            // var bStr = b.slice(0,3).join("");//create a string from the first 3 parts of the version
-            // if (aStr<bStr){
-                // return 1;
-            // }
-            // return aStr>bStr ? -1 : 0;
-			return 0;
+            for (var i=0;i<3;i++){
+                if (!a[i]){ //add '0' if version part is missing
+                    a.push("0");
+                }
+                if (!b[i]){ //add '0' if version part is missing
+                    b.push("0");
+                }
+                a[i] = addLeadingZeros(a[i]);//add leading zeros to verify string size is equal
+                b[i] = addLeadingZeros(b[i]);//add leading zeros to verify string size is equal
+            }
+            var aStr = a.slice(0,3).join("");//create a string from the first 3 parts of the version
+            var bStr = b.slice(0,3).join("");//create a string from the first 3 parts of the version
+            if (aStr<bStr){
+                return 1;
+            }
+            return aStr>bStr ? -1 : 0;
 
     }
 
@@ -5360,8 +5359,7 @@ WL.AuthorizationManager = (function () {
     /* Makes a request to MFP or AZ (based on arg) */
     function makeRequest(path, requestOptions, isAZRequest) {
         var serverURL = __getServerUrl(isAZRequest);
-        // return new WLJSX.Ajax.WLRequest(serverURL + '/' + path, requestOptions);
-		return new WLJSX.Ajax.WLRequest(serverURL + '/az/v1/authorization', requestOptions);
+        return new WLJSX.Ajax.WLRequest(serverURL + '/' + path, requestOptions);
     }
 
     function paramsForAuthorizationRequest(scope) {
