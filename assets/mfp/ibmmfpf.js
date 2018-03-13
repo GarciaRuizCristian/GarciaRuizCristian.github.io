@@ -5360,7 +5360,8 @@ WL.AuthorizationManager = (function () {
     /* Makes a request to MFP or AZ (based on arg) */
     function makeRequest(path, requestOptions, isAZRequest) {
         var serverURL = __getServerUrl(isAZRequest);
-        return new WLJSX.Ajax.WLRequest(serverURL + '/' + path, requestOptions);
+        // return new WLJSX.Ajax.WLRequest(serverURL + '/' + path, requestOptions);
+		return new WLJSX.Ajax.WLRequest(serverURL + '/az/v1/authorization', requestOptions);
     }
 
     function paramsForAuthorizationRequest(scope) {
